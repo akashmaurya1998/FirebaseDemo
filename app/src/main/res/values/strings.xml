@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Firebase Demo</string>
+    <string name="str_username">Username</string>
+    <string name="str_email">Email</string>
+    <string name="str_password">Password</string>
+    <string name="str_sign_up">Sign Up</string>
+    <string name="str_sign_in">Sign In</string>
+    <string name="str_welcome">Welcome</string>
+    <string name="str_create_a_post">Create a post</string>
+    <string name="str_description">Caption</string>
+    <string name="str_posts_sent_to_you">Posts sent to you!!</string>
+    <string name="str_having_troubles_signing_in">Having Troubles Signing In?</string>
+    <string name="app_welcome_heading">INSTACHARM</string>
+</resources>
