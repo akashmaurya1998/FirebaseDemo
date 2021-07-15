@@ -2,8 +2,11 @@
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_SMS}, PackageManager.PERMISSION_GRANTED);
 
         edtEmail = findViewById(R.id.editTextTextEmailAddress);
         edtPassword = findViewById(R.id.editTextTextPassword);
@@ -196,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
     private void transitionToSocialMedia(){
         Intent intent = new Intent(MainActivity.this, SocialMediaActivity.class);
         startActivity(intent);
-        Intent intent1 = new Intent(MainActivity.this, MessageService.class);
-        startService(intent1);
+
     }
 }

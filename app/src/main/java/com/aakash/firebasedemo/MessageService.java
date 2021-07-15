@@ -1,8 +1,10 @@
 package com.aakash.firebasedemo;
 
 import android.app.IntentService;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,22 +19,24 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class MessageService extends IntentService {
+public class MessageService extends Service {
 
-    private Handler handler;
     private FirebaseDatabase database;
     private FirebaseUser user;
+    private Handler handler;
 
-    public MessageService() {
-        super("MessageService");
-    }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        handler = new Handler();
+        database = FirebaseDatabase.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         synchronized (this) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    Log.d("ServiceStus", "started");
                     database.getReference().child("users").child(user.getUid()).child("received_posts").addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -61,14 +65,15 @@ public class MessageService extends IntentService {
                     });
                 }
             });
+
+            return Service.START_STICKY;
         }
     }
 
+    @Nullable
     @Override
-    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
-        handler = new Handler();
-        database = FirebaseDatabase.getInstance();
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        return super.onStartCommand(intent, flags, startId);
+    public IBinder onBind(Intent intent) {
+        return null;
     }
+
 }
